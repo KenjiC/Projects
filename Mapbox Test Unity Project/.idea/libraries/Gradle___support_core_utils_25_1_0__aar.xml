@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: :support-core-utils-25.1.0:@aar">
+    <ANNOTATIONS>
+      <root url="jar://D:/Users/Kenji/.gradle/caches/transforms-2/files-2.1/02029aba213f6b61e5201d6be7139f33/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="jar://D:/Users/Kenji/.gradle/caches/transforms-2/files-2.1/02029aba213f6b61e5201d6be7139f33/jars/classes.jar!/" />
+      <root url="file://D:/Users/Kenji/.gradle/caches/transforms-2/files-2.1/02029aba213f6b61e5201d6be7139f33/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
