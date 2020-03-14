@@ -1,7 +1,8 @@
 # Android ChatBot Project developed using IBM tutorial
 
 Developed for Cognitive Computing Class.
-Calculator ChatBot can aslo be run in Slack.
+
+Calculator ChatBot can also be run in Slack.
 
 <p align="center"><img src="images/android_chatbot.png" height="520" width="250" /><img src="images/android_watson_chatbot.png" height="520" width="250" /></p>
 <p align="center"><img src="images/slack_watson_chatbot.png" width="400" /></p>
