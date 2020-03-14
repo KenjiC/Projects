@@ -4,4 +4,4 @@ Notable projects that I have developed.
 * Mapbox Test Unity Project
 * Voxel Snake
 * Wear Earthquake Guardian
-* Chatbot Watson Android
+* Android Watson Calculator Chatbot  
