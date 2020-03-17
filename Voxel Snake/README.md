@@ -1,2 +1,3 @@
 # Voxel Snake Game
-My other projects
+Developed in C++. Controls are the arrow keys.
+
