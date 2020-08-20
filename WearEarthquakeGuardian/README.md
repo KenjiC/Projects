@@ -6,3 +6,5 @@ Prototype Wear OS  version of the regular Earthquake Gaurdian.
 * send predefined messages
 * point towards the user's location
 * Toggle an alarm on the user's device 
+
+<p align="center"><img src="images/Watch UI.gif"/></p>
