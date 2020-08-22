@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<!--
+Student: Kenji_Casibang <casibang@sheridan.desire2learn.com>
+StudentID: 911342061
+Course: PROG20261
+Project: Final Project
+-->
+<html>
+    <head>
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
+        <script src="./jquery/jquery.min.js"></script>
+        <link rel="stylesheet" href="./jquery/jquery.mobile-1.4.5.min.css">
+        <script src="./jquery/jquery.mobile-1.4.5.min.js"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+        <style>
+        </style>
+        <title>Currency Tracker</title>
+    </head>
+    <body>
+        <div data-role="page" id="storage">
+            <div data-role="content">          
+                <h1 align="center">Currency Tracker</h1> 
+                <div class="ui-field-contain">
+                    <label for="select-native-1">Convert:</label>
+                    <input type="number" id="input">
+                    <br>
+                    <select name="select-native-1" id="currency1">
+                        <option value="USD">USD</option>
+                        <option value="EUR">EUR</option>
+                        <option value="JPY">JPY</option>
+                        <option value="GBP">GBP</option>
+                        <option value="CHF">CHF</option>
+                        <option value="CAD">CAD</option>
+                    </select>
+                    <br>
+                    <label for="select-native-1">To:</label>
+                    <select name="select-native-1" id="currency2">
+                        <option value="USD">USD</option>
+                        <option value="EUR">EUR</option>
+                        <option value="JPY">JPY</option>
+                        <option value="GBP">GBP</option>
+                        <option value="CHF">CHF</option>
+                        <option value="CAD">CAD</option>
+                    </select>
+                </div>           
+                <div class="ui-field-contain">                              
+                    <p id="output" align="center"></p>
+                    <br>
+                    <div id="chart_div"></div>
+                </div>
+                <div class="ui-field-contain">          
+                    <button id="convertBtn" class="ui-btn">Convert</button>
+                </div>
+            </div>
+        </div>
+        <script>
+
+            $(document).ready(function (e) {
+                google.charts.load('current', {packages: ['corechart', 'line']});
+                google.charts.setOnLoadCallback(drawBasic);
+
+                var str, str1, str2, str3, str4, str5;
+                var d = new Date();
+                var day = d.getDate();
+                var url = "http://api.fixer.io/latest?";
+                var $convert = $('#convertBtn');
+                $.ajaxSetup({
+                    url: url,
+                    method: "GET",
+                    dataType: "text",
+                    cache: false,
+                    error: function () {
+                        console.log("Error: Cannot get data!");
+                    },
+                    success: function (data) {
+                        console.log(data);
+                    }
+                });
+                $convert.click(function (event) {
+                    var $currency1 = $('#currency1').val();
+                    var $currency2 = $('#currency2').val();
+                    var $input = $('#input').val();
+                    var day1 = "2017-04-" + (day - 1);
+                    var day2 = "2017-04-" + (day - 2);
+                    var day3 = "2017-04-" + (day - 3);
+                    var day4 = "2017-04-" + (day - 4);
+                    var day5 = "2017-04-" + (day - 5);
+                    if ($input == 0) {
+                        alert("Enter an amount!");
+                        return;
+                    } else if ($input < 0) {
+                        alert("Number can't be negative!");
+                        return;
+                    }
+                    $.get(url, {base: $currency1, symbols: $currency2}, function (data) {
+                        var obj = JSON.parse(data);
+                        obj = JSON.stringify(obj.rates);
+                        str = "" + obj.split(':').slice(1);
+                        str = str.slice(0, -1);
+                        var output = $input * parseFloat(str);
+                        $('p').text(output);                     
+                    })
+                    $.get(url, {date: day1, base: $currency1, symbols: $currency2}, function (data) {
+                        var obj = JSON.parse(data);
+                        obj = JSON.stringify(obj.rates);
+                        str = "" + obj.split(':').slice(1);
+                        str1 = str.slice(0, -1);
+                    })
+                    $.get(url, {date: day2, base: $currency1, symbols: $currency2}, function (data) {
+                        var obj = JSON.parse(data);
+                        obj = JSON.stringify(obj.rates);
+                        str = "" + obj.split(':').slice(1);
+                        str2 = str.slice(0, -1);
+                    })
+                    $.get(url, {date: day3, base: $currency1, symbols: $currency2}, function (data) {
+                        var obj = JSON.parse(data);
+                        obj = JSON.stringify(obj.rates);
+                        str = "" + obj.split(':').slice(1);
+                        str3 = str.slice(0, -1);
+                    })
+                    $.get(url, {date: day4, base: $currency1, symbols: $currency2}, function (data) {
+                        var obj = JSON.parse(data);
+                        obj = JSON.stringify(obj.rates);
+                        str = "" + obj.split(':').slice(1);
+                        str4 = str.slice(0, -1);
+                    })
+                    $.get(url, {date: day5, base: $currency1, symbols: $currency2}, function (data) {
+                        var obj = JSON.parse(data);
+                        obj = JSON.stringify(obj.rates);
+                        str = "" + obj.split(':').slice(1);
+                        str5 = str.slice(0, -1);
+                    })
+
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('number', 'X');
+                    data.addColumn('number', $currency1);
+                    data.addRows([
+                        [day - 5, parseFloat(str5)], [day - 4, parseFloat(str4)], [day - 3, parseFloat(str3)], [day - 2, parseFloat(str2)], [day - 1, parseFloat(str1)], [day, parseFloat(str)]
+                    ]);
+                    var options = {
+                        hAxis: {
+                            title: 'Date'
+                        },
+                        vAxis: {
+                            title: $currency1 + " to " +$currency2 + " Rates"
+                        }
+                    };
+                    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+                    chart.draw(data, options);
+                });
+                function drawBasic() {
+                }
+            });
+
+        </script>
+    </body>
+</html>
